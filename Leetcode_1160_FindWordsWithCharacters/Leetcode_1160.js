@@ -1,30 +1,54 @@
-var countCharacters = function(words, chars) {
-    let wordResult = 0;
-    let charResult = 0;
+wordss = ["cat","bt","hat","tree"];
+charss ="atach";
+
+function countCharacters(words, chars) {
     let totalResult = 0;
     let temporaryStorage = [];
-    for(let word=0; word<words.length(); word++){
-        for(let WLetter=0; WLetter<word.length(); WLetter++){
-            wordResult += charCodeAt(WLetter);
-            for(let CLetter=0; CLetter<chars.length; CLetter++){
-                if (CLetter == WLetter && !LetterIsPresent(CLetter,temporaryStorage)){
-                    temporaryStorage.push(CLetter);
-                }
+    charsArray = chars.split('');
+    for(let i=0; i<words.length; i++){
+        let word = words[i];
+        let wordArray = word.split('');
+        let wordArrayLength = wordArray.length;
+        console.log("wordArrayBeg:"+ wordArray+" "+ wordArray.length);
+
+        for(let k=0; k<charsArray.length; k++){
+            let CLetter = charsArray[k];
+
+            for(let j=0; j<wordArray.length; ++j){
+                let WLetter = wordArray[j];
+                console.log(CLetter +" ---- "+ WLetter +"----"+temporaryStorage +" ------ "+ charsArray);
+                if (CLetter == WLetter){
+                    temporaryStorage.push(WLetter);
+                    charsArray.splice(k,1);
+                    wordArray.splice(j,1);
+                    j=-1;
+                    k=0;
+                    WLetter = wordArray[j];
+                    CLetter = charsArray[k];
+                }    
             }
         }
-        if (wordResult==charResult){
-            totalResult+=word.length();
+        temporaryStorage = [];
+        charsArray = chars.split('');
+
+        if (wordArray.length==0){
+            totalResult+=wordArrayLength;
+            console.log("totalResult: "+totalResult);
         }
     }
+    console.log(temporaryStorage);
+    console.log("totalResult: "+totalResult);
 };
 
 function LetterIsPresent(currentletter,tempS){
-    for(let i=0; i<tempS.length(); i++){
-        if (i==currentletter){
+    for(let i=0; i<tempS.length; i++){
+        if (currentletter==tempS[i]){
             return true;
         }
-        else{
-            return false;
-        }
+        // else{
+        //     return false;
+        // }
     }
 }
+
+countCharacters(wordss, charss) ;
